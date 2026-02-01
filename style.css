@@ -1,10 +1,10 @@
+/* =====================================================
+   RESET & BASE
+===================================================== */
 * {
   box-sizing: border-box;
 }
 
-/* =======================
-   BASE
-======================= */
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -13,7 +13,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Grain for cinematic feel */
+/* Grain texture */
 body::after {
   content: "";
   position: fixed;
@@ -24,18 +24,29 @@ body::after {
   z-index: -1;
 }
 
-/* =======================
+/* Custom text selection */
+::selection {
+  background: rgba(255, 77, 109, 0.35);
+  color: #2b2b2b;
+}
+
+::-moz-selection {
+  background: rgba(255, 77, 109, 0.35);
+  color: #2b2b2b;
+}
+
+/* =====================================================
    SECTIONS
-======================= */
+===================================================== */
 section {
   padding: 100px 20px;
   text-align: center;
   position: relative;
 }
 
-/* =======================
+/* =====================================================
    HERO
-======================= */
+===================================================== */
 .hero {
   position: relative;
   height: 100vh;
@@ -45,18 +56,15 @@ section {
   justify-content: center;
 }
 
-/* Video background */
 .bg-video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
   z-index: -3;
 }
 
-/* Overlay for readability */
 .overlay {
   position: absolute;
   inset: 0;
@@ -67,42 +75,20 @@ section {
   z-index: -2;
 }
 
-/* Fade video into page */
-.hero::after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 100%;
-  height: 140px;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0),
-    #fcecff
-  );
-  z-index: -1;
-}
-
-/* Hero text */
 .hero-title {
   font-size: 3.2rem;
-  font-weight: 600;
-  color: #ffffff;
-  letter-spacing: 0.6px;
-  text-shadow:
-    0 4px 20px rgba(0,0,0,0.25),
-    0 0 30px rgba(255, 77, 109, 0.3);
+  color: #fff;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.25);
 }
 
 .subtitle {
-  font-size: 1.2rem;
-  margin: 15px 0 30px;
   color: #fff;
+  margin: 15px 0 30px;
 }
 
-/* =======================
+/* =====================================================
    GLASS / CARD
-======================= */
+===================================================== */
 .glass,
 .card {
   background: rgba(255, 255, 255, 0.45);
@@ -115,96 +101,29 @@ section {
   animation: float 6s ease-in-out infinite;
 }
 
-/* =======================
+/* =====================================================
    BUTTON
-======================= */
+===================================================== */
 .cute-btn {
   padding: 14px 28px;
   border-radius: 30px;
   border: none;
-  font-size: 16px;
   background: linear-gradient(135deg, #ff4d6d, #ff85a1);
   color: white;
   cursor: pointer;
-  box-shadow: 0 10px 30px rgba(255, 77, 109, 0.4);
-  transition: all 0.3s ease;
+  transition: 0.3s;
 }
 
 .cute-btn:hover {
   transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 20px 40px rgba(255, 77, 109, 0.6);
 }
 
-/* =======================
-   BACKGROUND BLOBS
-======================= */
-.bg-blobs {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  z-index: -4;
-  pointer-events: none;
-}
-
-.bg-blobs span {
-  position: absolute;
-  width: 420px;
-  height: 420px;
-  background: radial-gradient(circle, rgba(255,182,193,0.35), transparent 70%);
-  border-radius: 50%;
-  filter: blur(55px);
-  animation: blobMove 35s infinite alternate ease-in-out;
-}
-
-.bg-blobs span:nth-child(1) {
-  top: -120px;
-  left: -120px;
-}
-
-.bg-blobs span:nth-child(2) {
-  bottom: -150px;
-  right: -100px;
-  animation-delay: 6s;
-}
-
-.bg-blobs span:nth-child(3) {
-  top: 40%;
-  left: 60%;
-  animation-delay: 12s;
-}
-
-@keyframes blobMove {
-  from {
-    transform: translate(0,0) scale(1);
-  }
-  to {
-    transform: translate(120px, -80px) scale(1.2);
-  }
-}
-
-/* =======================
-   STORY / GALLERY / LETTER GLOW
-======================= */
-.story::before,
-.gallery::before,
-.letter::before {
-  content: "";
-  position: absolute;
-  inset: -50px;
-  background: radial-gradient(
-    circle at top,
-    rgba(255,182,193,0.22),
-    transparent 65%
-  );
-  z-index: -1;
-}
-
-/* Story text readability */
+/* =====================================================
+   STORY / LETTER
+===================================================== */
 .story-card p {
-  font-size: 1.05rem;
   line-height: 1.9;
   margin-bottom: 1.6rem;
-  color: #444;
 }
 
 .story-ending {
@@ -212,77 +131,173 @@ section {
   color: #ff4d6d;
 }
 
-/* =======================
+/* =====================================================
    GALLERY
-======================= */
+===================================================== */
 .photos {
   display: flex;
+  gap: 24px;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 24px;
   margin-top: 40px;
 }
 
 .photo-card {
   width: 240px;
+  cursor: pointer;
+  background: transparent;
+  overflow: visible;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* Image container */
+.photo-img {
+  position: relative;
   aspect-ratio: 3 / 4;
   border-radius: 22px;
   overflow: hidden;
-  background: #fff;
   box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  transition: transform 0.4s ease;
 }
 
-.photo-card img {
+.photo-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
 }
 
-.photo-card:hover {
-  transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 30px 50px rgba(255, 77, 109, 0.4);
+.photo-card:hover .photo-img {
+  transform: translateY(-8px);
+}
+
+/* Tap indicator — FINAL & STABLE */
+.photo-img::after {
+  content: "Tap 💗";
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  font-size: 0.75rem;
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.95);
+  color: #ff4d6d;
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(255,77,109,0.4);
+  z-index: 5;
+  pointer-events: none;
+  animation: tapPulse 2.4s ease-in-out infinite;
+}
+
+.photo-card.active .photo-img::after {
+  opacity: 0;
+}
+
+/* Dropdown text */
+.photo-text {
+  display: none;
+  margin-top: 12px;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.85);
+  border-radius: 16px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.photo-card.active .photo-text {
+  display: block;
+  animation: fadeUp 0.5s ease forwards;
+}
+
+/* Dim others */
+.photos.dim .photo-card:not(.active) {
+  transform: scale(0.92);
+  opacity: 0.6;
 }
 
 /* =======================
-   FLOATING HEARTS (OPTIONAL)
+   BACKGROUND FLOATING HEARTS
 ======================= */
-@keyframes floatHearts {
-  from {
-    transform: translateY(0) translateX(0);
-    opacity: 0.6;
+.bg-heart {
+  position: fixed;
+  bottom: -60px;                 /* start lower */
+  font-size: 14px;
+  opacity: 0.5;
+  pointer-events: none;
+  animation: bgFloat 22s linear forwards;
+  z-index: -2;
+}
+
+@keyframes bgFloat {
+  0% {
+    transform: translateY(0) scale(0.7);
+    opacity: 0;
   }
-  to {
-    transform: translateY(-120vh) translateX(40px);
+  10% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-130vh) scale(1.1);
     opacity: 0;
   }
 }
 
-.heart {
-  position: fixed;
-  bottom: -50px;
-  font-size: 13px;
-  color: rgba(255,105,135,0.35);
-  animation: floatHearts 25s linear infinite;
-  z-index: -3;
+/* =======================
+   PHOTO HEART BURST (FIXED)
+======================= */
+.photo-heart {
+  position: absolute;
+  font-size: 26px;
+  pointer-events: none;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation: photoHeartBurst 1.6s cubic-bezier(.22,1,.36,1) forwards;
+  filter: drop-shadow(0 6px 12px rgba(255, 77, 109, 0.35));
 }
 
-/* =======================
-   FINAL SECTION
-======================= */
+@keyframes photoHeartBurst {
+  0% {
+    transform: translate(-50%, -50%) scale(0.4);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+    transform: translate(
+      calc(-50% + var(--x)),
+      calc(-50% + var(--y))
+    ) scale(1.2);
+  }
+  100% {
+    transform: translate(
+      calc(-50% + var(--x)),
+      calc(-50% + calc(var(--y) - 40px))
+    ) scale(1);
+    opacity: 0;
+  }
+}
+
+
+/* =====================================================
+   FINAL SECTION (REVERTED & CLEAN)
+===================================================== */
 .final {
   background: linear-gradient(135deg, #ff4d6d, #ff85a1);
   color: white;
+  padding: 140px 20px;
 }
 
-/* =======================
+.final-title {
+  font-size: 2.6rem;
+  margin-bottom: 16px;
+}
+
+/* =====================================================
    SCROLL REVEAL
-======================= */
+===================================================== */
 .reveal {
   opacity: 0;
   transform: translateY(60px);
-  transition: all 1s ease;
+  transition: 1s ease;
 }
 
 .reveal.active {
@@ -290,194 +305,92 @@ section {
   transform: translateY(0);
 }
 
-/* =======================
-   FLOAT ANIMATION
-======================= */
+/* =====================================================
+   ANIMATIONS
+===================================================== */
 @keyframes float {
   0% { transform: translateY(0); }
   50% { transform: translateY(-12px); }
   100% { transform: translateY(0); }
 }
 
-/* =======================
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes tapPulse {
+  0%   { transform: scale(0.95); opacity: 0.7; }
+  50%  { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.7; }
+}
+
+/* =====================================================
    MOBILE
-======================= */
-@media (max-width: 600px) {
-  .hero-title {
-    font-size: 2.3rem;
-  }
-}
-/* =======================
-   MOBILE READABILITY FIXES
-======================= */
+===================================================== */
 @media (max-width: 768px) {
-
-  /* Overall spacing */
-  section {
-    padding: 70px 16px;
-  }
-
-  /* HERO */
-  .hero-title {
-    font-size: 2.2rem;
-    line-height: 1.3;
-    padding: 0 8px;
-  }
-
-  .subtitle {
-    font-size: 1.05rem;
-    line-height: 1.6;
-    padding: 0 12px;
-  }
-
-  /* Glass card (hero + others) */
-  .glass,
-  .card {
-    padding: 26px 20px;
-    border-radius: 22px;
-  }
-
-  /* Button – thumb friendly */
-  .cute-btn {
-    padding: 16px 32px;
-    font-size: 16px;
-    border-radius: 999px;
-  }
-
-  /* STORY TEXT */
-  .story-card p {
-    font-size: 1.02rem;
-    line-height: 1.85;
-    text-align: left;              /* 👈 key for readability */
-  }
-
-  .story-ending {
-    text-align: center;
-    font-size: 1.05rem;
-  }
-
-  /* GALLERY */
-  .photos {
-    gap: 18px;
-  }
-
-  .photo-card {
-    width: 85vw;                   /* 👈 fills screen nicely */
-    max-width: 300px;
-    aspect-ratio: 3 / 4;
-  }
-
-  /* FINAL SECTION */
-  .final h1 {
-    font-size: 2rem;
-    line-height: 1.3;
-  }
-
-  .final p {
-    font-size: 1.05rem;
-  }
-}
-@media (max-width: 768px) {
-  .overlay {
-    background: linear-gradient(
-      rgba(255, 77, 109, 0.45),
-      rgba(255, 133, 161, 0.45)
-    );
-  }
+  section { padding: 70px 16px; }
+  .hero-title { font-size: 2.2rem; }
+  .photo-card { width: 85vw; max-width: 300px; }
 }
 /* =======================
-   PHOTO INTERACTION
+   HERO → CONTENT GRADIENT FADE
 ======================= */
-.photo-card {
-  cursor: pointer;
-}
-
-/* Text dropdown */
-.photo-text {
-  max-height: 0;
-  overflow: hidden;
-  padding: 0 14px;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: #444;
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(8px);
-  border-radius: 0 0 18px 18px;
-  margin-top: -10px;
-  transition: max-height 0.6s ease, padding 0.4s ease, opacity 0.4s ease;
-  opacity: 0;
-}
-
-/* Active photo text */
-.photo-card.active .photo-text {
-  max-height: 200px;
-  padding: 14px;
-  opacity: 1;
-}
-
-/* Other photos shrink */
-.photos.dim .photo-card:not(.active) {
-  transform: scale(0.92);
-  opacity: 0.6;
-}
-
-/* Active photo slightly lifts */
-.photo-card.active {
-  transform: scale(1.05);
-  z-index: 2;
-}
-/* =======================
-   PHOTO CLICK TEXT FIX
-======================= */
-
-/* Image wrapper */
-.photo-img {
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
   width: 100%;
-  aspect-ratio: 3 / 4;
-  overflow: hidden;
-  border-radius: 22px;
+  height: 160px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0),
+    #fcecff
+  );
+  z-index: -1;
+}
+/* =======================
+   HEART CURSOR
+======================= */
+.heart-cursor {
+  position: fixed;
+  font-size: 22px;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s ease;
+  z-index: 9999;
 }
 
-/* Ensure card can grow */
-.photo-card {
-  cursor: pointer;
-  overflow: visible; /* IMPORTANT */
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+}
+/* =======================
+   AMBIENT BACKGROUND HEARTS
+======================= */
+.ambient-heart {
+  position: fixed;
+  bottom: -40px;
+  font-size: var(--size);
+  opacity: var(--opacity);
+  left: var(--left);
+  pointer-events: none;
+  z-index: -2;
+  animation: ambientFloat var(--duration) linear forwards;
+  filter: blur(0.2px);
 }
 
-/* Dropdown text */
-.photo-text {
-  max-height: 0;
-  overflow: hidden;
-  padding: 0 16px;
-  margin-top: 8px;
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: #444;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(8px);
-  border-radius: 16px;
-  opacity: 0;
-  transition:
-    max-height 0.6s ease,
-    padding 0.4s ease,
-    opacity 0.4s ease;
-}
-
-/* Active dropdown */
-.photo-card.active .photo-text {
-  max-height: 240px;
-  padding: 14px 16px;
-  opacity: 1;
-}
-
-/* Other photos dim */
-.photos.dim .photo-card:not(.active) {
-  transform: scale(0.92);
-  opacity: 0.6;
-}
-
-/* Active photo emphasis */
-.photo-card.active {
-  transform: scale(1.05);
-  z-index: 2;
+@keyframes ambientFloat {
+  from {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: var(--opacity);
+  }
+  to {
+    transform: translateY(-120vh)
+               translateX(var(--drift))
+               scale(1.15);
+    opacity: 0;
+  }
 }
