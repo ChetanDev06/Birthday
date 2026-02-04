@@ -46,21 +46,7 @@ function typeEffect() {
 
 typeEffect();
 
-/* =====================================================
-   BACKGROUND FLOATING HEARTS
-===================================================== */
-setInterval(() => {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.textContent = "💗";
 
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.setProperty("--drift", Math.random());
-
-  document.body.appendChild(heart);
-
-  setTimeout(() => heart.remove(), 18000);
-}, 2200);
 
 /* =====================================================
    PHOTO CLICK INTERACTION
@@ -136,6 +122,100 @@ if (!("ontouchstart" in window)) {
     heartCursor.style.top = e.clientY + "px";
   });
 }
+
+/* =====================================================
+   COLLAGE GENERATOR
+===================================================== */
+function generateCollage() {
+  const collageSection = document.getElementById("memories-collage");
+  /* 
+   * TO ADD PHOTOS:
+   * 1. Add your photo files (jpg, png, etc.) to the 'images' folder.
+   * 2. Add the filenames to this list below.
+   * 
+   * Want to test with random internet photos? Uncomment the lines below!
+   */
+  const images = [
+    "Gallery/1.png",
+    "Gallery/2.png",
+    "Gallery/3.png",
+    "Gallery/4.png",
+    "Gallery/5.png",
+    "Gallery/6.png",
+    "Gallery/7.png",
+    "Gallery/8.png",
+    "Gallery/9.png",
+    "Gallery/10.png",
+    "Gallery/11.png",
+    "Gallery/12.png",
+    "Gallery/13.png",
+    "Gallery/14.png",
+    "Gallery/15.png",
+    "Gallery/16.png",
+    "Gallery/17.png",
+    "Gallery/18.png",
+    "Gallery/19.png",
+    "Gallery/20.png",
+    "Gallery/21.png",
+    "Gallery/22.png",
+    "Gallery/23.png",
+    "Gallery/24.png",
+    "Gallery/25.png",
+    "Gallery/26.png",
+    "Gallery/27.png",
+    "Gallery/28.png",
+    "Gallery/29.png",
+    "Gallery/30.png",
+    "Gallery/31.png",
+    "Gallery/32.png",
+    "Gallery/33.png",
+    "Gallery/34.png",
+    "Gallery/35.png",
+    "Gallery/36.png",
+    // "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500&auto=format&fit=crop",
+    // "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&auto=format&fit=crop",
+    // "https://images.unsplash.com/photo-1530103862676-de3c9da59af7?w=500&auto=format&fit=crop",
+    // "https://images.unsplash.com/photo-1519834785169-98be25ec3f84?w=500&auto=format&fit=crop",
+  ];
+  /* 
+     Use exact number of photos available (No repetition) 
+  */
+  const photoCount = images.length;
+
+  if (!collageSection) return;
+
+  // Shuffle the images array for random order
+  images.sort(() => Math.random() - 0.5);
+
+  for (let i = 0; i < photoCount; i++) {
+    const photo = document.createElement("div");
+    photo.className = "collage-photo";
+
+    // Random styling for size variation (approx 20% chance for each special size)
+    const randomSize = Math.random();
+    if (randomSize > 0.85) {
+      photo.classList.add("big"); // 2x2
+    } else if (randomSize > 0.65) {
+      // Removed "wide" (2x1) as it shorts portrait photos
+      photo.classList.add("tall"); // 1x2 checks
+    }
+    // Else stays 1x1 (Standard Portrait)
+
+    // Image source
+    const img = document.createElement("img");
+    img.src = images[i]; // No modulo needed, one per item
+    photo.appendChild(img);
+
+    // Staggered animation delay for "wave" effect
+    const delay = (i % 10) * 0.05;
+    photo.style.animationDelay = delay + "s";
+
+    collageSection.appendChild(photo);
+  }
+}
+
+generateCollage();
+
 
 /* =====================================================
    AMBIENT BACKGROUND HEART MOTION
